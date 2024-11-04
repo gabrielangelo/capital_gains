@@ -1,0 +1,6 @@
+{
+    "skip_files": [
+      "lib/capital_gains/infrastructure/cli/cli_arg_parser.ex",
+      "lib/capital_gains/domain/shared/errors.ex"
+    ]
+  }

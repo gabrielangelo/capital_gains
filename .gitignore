@@ -1,0 +1,10 @@
+/_build/
+/cover/
+/deps/
+/doc/
+/.fetch
+/priv/
+erl_crash.dump
+*.ez
+capital_gains-*.tar
+*.sh
