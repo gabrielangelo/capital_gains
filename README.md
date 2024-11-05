@@ -150,7 +150,7 @@ The project separates tests into two categories:
 
 Run all tests:
 ```bash
-mix test
+$ mix test
 ```
 
 ### Coverage Reports
@@ -167,12 +167,12 @@ $ MIX_ENV=test mix coveralls
 
 Run static analysis:
 ```bash
-mix dialyzer --format short
+$ mix dialyzer --format short
 ```
 
 Check code style:
 ```bash
-mix credo --strict
+$ mix credo --strict
 ```
 
 ## Additional Notes
@@ -184,7 +184,6 @@ mix credo --strict
 
 2. Testing Strategy
    - Integration tests for CLI
-   - Property-based testing
    - High code coverage ( 97.2%)
 
 3. Future Improvements
