@@ -6,7 +6,7 @@ defmodule CapitalGains.Domain.Tax.Entities.TaxCalculationTest do
   alias CapitalGains.Domain.Tax.Entities.TaxCalculation
   alias CapitalGains.Domain.Tax.ValueObjects.Money
   alias CapitalGains.Domain.Trading.Entities.Portfolio
-  alias CapitalGains.Domain.Trading.Entities.Portfolio.StockOperation
+  alias CapitalGains.Domain.Trading.Entities.StockOperation
 
   # Helper functions
   defp money(amount_in_cents), do: %Money{amount_cents: amount_in_cents}
