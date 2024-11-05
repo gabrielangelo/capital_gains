@@ -31,11 +31,6 @@ defmodule CapitalGains.Domain.Tax.ValueObjects.Money do
   iex> money = Money.new(10.00)
   iex> Money.multiply(money, 3)
   %Money{amount_cents: 3000}
-
-  This implementation is crucial for our capital gains calculator as it ensures that all monetary calculations,
-  from position values to tax calculations, are performed with absolute precision and reliability. The value object
-  encapsulates all the complexity of dealing with monetary values while providing a clean and safe interface for the
-  rest of the application to use.
   """
 
   alias CapitalGains.Domain.Shared.Result
@@ -57,7 +52,9 @@ defmodule CapitalGains.Domain.Tax.ValueObjects.Money do
 
   @spec to_decimal(t()) :: Decimal.t()
   def to_decimal(%__MODULE__{amount_cents: cents} = _money) do
-    Decimal.from_float(cents / 100) |> Decimal.round(2)
+    (cents / 100)
+    |> Decimal.from_float()
+    |> Decimal.round(2)
   end
 
   @spec add(t(), t()) :: t()

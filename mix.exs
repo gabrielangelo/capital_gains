@@ -33,12 +33,11 @@ defmodule CapitalGains.MixProject do
 
   defp deps do
     [
-      {:jason, "~> 1.4"},
       {:excoveralls, "~> 0.18", only: :test},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:optimus, "~> 0.2"},
-      {:decimal, "~> 2.0"}
+      {:decimal, "~> 2.0"},
+      {:poison, "~> 6.0"}
     ]
   end
 

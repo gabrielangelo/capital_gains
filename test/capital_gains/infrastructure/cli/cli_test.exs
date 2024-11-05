@@ -17,8 +17,8 @@ defmodule CapitalGains.Infrastructure.CLITest do
           CLI.process_stdin()
         end)
 
-      parsed = Jason.decode!(String.trim(output))
-      assert parsed == [%{"tax" => "0.00"}]
+      parsed = Poison.decode!(String.trim(output))
+      assert parsed == [%{"tax" => 0.00}]
     end
   end
 
@@ -32,8 +32,8 @@ defmodule CapitalGains.Infrastructure.CLITest do
         CLI.process_stdin()
       end)
 
-    parsed = Jason.decode!(String.trim(output))
-    assert parsed == [%{"tax" => "0.00"}, %{"tax" => "0.00"}]
+    parsed = Poison.decode!(String.trim(output))
+    assert parsed == [%{"tax" => 0.00}, %{"tax" => 0.00}]
   end
 
   test "processes multiple lines independently" do
@@ -51,12 +51,12 @@ defmodule CapitalGains.Infrastructure.CLITest do
       output
       |> String.trim()
       |> String.split("\n")
-      |> Enum.map(&Jason.decode!/1)
+      |> Enum.map(&Poison.decode!/1)
 
     assert length(lines) == 2
     [first_line, second_line] = lines
-    assert first_line == [%{"tax" => "0.00"}, %{"tax" => "0.00"}]
-    assert second_line == [%{"tax" => "0.00"}, %{"tax" => "10000.00"}]
+    assert first_line == [%{"tax" => 0.00}, %{"tax" => 0.00}]
+    assert second_line == [%{"tax" => 0.00}, %{"tax" => 10000.00}]
   end
 
   test "handles empty input" do
@@ -78,7 +78,7 @@ defmodule CapitalGains.Infrastructure.CLITest do
         CLI.process_stdin()
       end)
 
-    parsed = Jason.decode!(String.trim(output))
+    parsed = Poison.decode!(String.trim(output))
     assert parsed == %{"error" => "Invalid JSON format"}
   end
 end

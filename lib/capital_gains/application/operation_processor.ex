@@ -4,7 +4,7 @@ defmodule CapitalGains.Application.OperationProcessor do
   of stock market operation processing and tax calculation. This module
   serves as the main coordinator between the trading and tax domains,
   implementing the complex workflow of processing operations, maintaining
-  portfolio state, and calculating taxes according to Brazilian regulations.
+  portfolio state, and calculating taxes.
 
   The processor implements a stateful approach where each operation affects
   the cumulative state of the portfolio and loss tracking, while ensuring
@@ -12,7 +12,7 @@ defmodule CapitalGains.Application.OperationProcessor do
   This design allows for batch processing of operations while maintaining
   isolation between different sets of operations, as required by the Brazilian tax system.
 
-  The implementation carefully handles all edge cases in the tax calculation process,
+  The implementation carefully handles the edge cases in the tax calculation process,
   including operations below the tax threshold (R$ 20,000.00),
   loss accumulation and deduction, and weighted average price calculations.
   It maintains precision throughout all calculations by leveraging the Money value
@@ -28,7 +28,7 @@ defmodule CapitalGains.Application.OperationProcessor do
   ]
 
   OperationProcessor.process_operations(operations)
-  # => [%{"tax" => 0.00}, %{"tax" => 0.00}]
+  # => [%{"tax" => #Decimal<0.00>}, %{"tax" => #Decimal<0.00>}]
 
   # Process complex operations with loss deduction
   operations = [
@@ -38,7 +38,7 @@ defmodule CapitalGains.Application.OperationProcessor do
   ]
 
   OperationProcessor.process_operations(operations)
-  # => [%{"tax" => 0.00}, %{"tax" => 0.00}, %{"tax" => 1000.00}]
+  # => [%{"tax" => #Decimal<0.00>}, %{"tax" => #Decimal<0.00}, %{"tax" => 1000.00}]
   ```
   """
   alias CapitalGains.Domain.Shared.Result
