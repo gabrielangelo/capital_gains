@@ -56,7 +56,7 @@ defmodule CapitalGains.Infrastructure.CLITest do
     assert length(lines) == 2
     [first_line, second_line] = lines
     assert first_line == [%{"tax" => 0.00}, %{"tax" => 0.00}]
-    assert second_line == [%{"tax" => 0.00}, %{"tax" => 10000.00}]
+    assert second_line == [%{"tax" => 0.00}, %{"tax" => 10_000.00}]
   end
 
   test "handles empty input" do
