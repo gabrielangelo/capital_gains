@@ -1,4 +1,3 @@
-```markdown
 # Capital Gains Tax Calculator
 
 A command-line tool for calculating capital gains tax on stock market operations according to Brazilian tax rules.
@@ -30,8 +29,6 @@ This project follows Domain-Driven Design (DDD) principles with clear bounded co
    - I/O processing
 
 Key architectural decisions:
-- Immutable data structures for reliable state management
-- Railway-oriented programming for error handling
 - Integer-based monetary calculations for precision
 - Stream processing for efficient memory usage
 - Clear separation of concerns through contexts
@@ -40,13 +37,13 @@ Key architectural decisions:
 
 The project uses minimal external dependencies:
 
-1. Jason (~> 1.4)
+1. Poison (~> 6.0)
    - Purpose: JSON parsing/encoding
    - Justification: Industry standard for Elixir JSON handling
 
-2. Optimus (~> 0.2)
-   - Purpose: Command-line argument parsing
-   - Justification: Provides CLI argument handling with built-in help generation
+2. Decimal (~> 2.0)
+   - Purpose: Use Decimal for tax values presentation
+   - Justification: Decimal numbers are better handled by Poison for stderr JSON output, as Jason tends to convert large numbers to scientific notation
 
 Development dependencies:
 - Credo: Code style checking
@@ -59,42 +56,20 @@ Development dependencies:
 - Elixir 1.16 or later
 - Erlang/OTP 24 or later
 
-### Building from Source
-
-1. Install tools-versions using asdf:
-```bash
-   asdf install
-```
-
-2. Get dependencies:
-```bash
-mix deps.get
-```
-
-3. Compile the project:
-```bash
-mix compile
-```
-
-4. Build the executable:
-```bash
-mix escript.build
-```
-
 ### System-wide Installation
 
 For Linux/MacOS systems, you can install the executable system-wide:
 
 ```bash
 # Create installation script
-cat > install.sh << 'EOF'
-#!/bin/bash
 
+cat  >  install.sh  <<  'EOF'
+#!/bin/bash
 # install elixir/erlang
 asdf install
 
 # get deps
-mix deps
+mix deps.get
 
 # Build the executable
 mix escript.build
@@ -103,42 +78,39 @@ mix escript.build
 mkdir -p $HOME/bin
 
 # Copy executable to bin directory
+
 cp capital_gains $HOME/bin/
 
 # Add to PATH if not already there
+
 if [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
-    echo 'export PATH="$HOME/bin:$PATH"' >> $HOME/.bashrc
-    echo 'Please restart your terminal or run: source $HOME/.bashrc'
+
+echo 'export PATH="$HOME/bin:$PATH"' >> $HOME/.bashrc
+
+echo 'Please restart your terminal or run: source $HOME/.bashrc'
+
 fi
 
 echo "Installation complete!"
+
 EOF
-
 # Make script executable
-chmod +x install.sh
-
+chmod  +x  install.sh
 # Run installation
 ./install.sh
 ```
 
 ## Usage
 
-### Basic Usage
-
-Process operations from stdin:
+* Process operations from an input file:
 ```bash
-cat operations.json | capital_gains
+$ ./capital_gains < operations.json 
+```
+* You can run capital_gains directly (from your ```$PATH/bin```:
+```bash
+$ capital_gains < operations.json 
 ```
 
-Process operations from file:
-```bash
-capital_gains -f operations.json
-```
-
-Enable verbose output:
-```bash
-capital_gains -f operations.json -v
-```
 
 ### Input Format
 
@@ -185,9 +157,11 @@ mix test
 
 Generate coverage reports:
 
+
+### Basic coverage report
 ```bash
-# Basic coverage report
-MIX_ENV=test mix coveralls
+$ MIX_ENV=test mix coveralls
+```
 
 ### Code Quality
 
@@ -198,36 +172,22 @@ mix dialyzer --format short
 
 Check code style:
 ```bash
-mix credo
+mix credo --strict
 ```
 
 ## Additional Notes
 
-1. Tax Rules Implementation
-   - 20% tax rate on profits
-   - R$ 20,000.00 tax threshold per operation
-   - Loss carryforward for future profit deduction
-   - Weighted average cost basis calculation
-
-2. Performance Considerations
+1. Performance Considerations
    - Stream processing for memory efficiency
    - Integer arithmetic for precision
    - Immutable state for reliability
 
-3. Error Handling
-   - Clear error messages
-   - Proper error propagation
-   - Safe error recovery
-   - Input validation
-
-4. Testing Strategy
-   - Comprehensive unit tests
+2. Testing Strategy
    - Integration tests for CLI
    - Property-based testing
-   - High code coverage
+   - High code coverage ( 97.2%)
 
-5. Future Improvements
-   - Configuration file support
+3. Future Improvements
    - Multiple currency support
    - Transaction logging
    - API integration
@@ -235,4 +195,3 @@ mix credo
 ## License
 
 MIT License - see LICENSE file for details.
-```
